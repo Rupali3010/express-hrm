@@ -1,0 +1,156 @@
+<section class="container bg-white my-4">
+  <article>
+    <main class="employeeBlock">
+      <h2 class="h2 text-uppercase py-3 font-weight-bold text-success">update
+        employee</h2>
+      <form
+        action="/employee/edit-emp/{{editEmployee._id}}?_method=PUT"
+        method="post"
+        enctype="multipart/form-data"
+      >
+        <input type="hidden" name="_method" value="PUT" />
+        <div class="row">
+          <div class="col-3 form-group">
+            <label for="emp_name">emp name</label>
+            <input
+              type="text"
+              class="form-control"
+              name="emp_name"
+              id="emp_name"
+              placeholder="enter employee name"
+              value={{editEmployee.emp_name}}
+            />
+          </div>
+          <div class="col-3 form-group">
+            <label for="emp_id">emp id</label>
+            <input
+              type="text"
+              class="form-control"
+              name="emp_id"
+              id="emp_id"
+              placeholder="enter employee id"
+              value={{editEmployee.emp_id}}
+            />
+          </div>
+          <div class="col-3 form-group">
+            <label for="emp_salary">emp salary</label>
+            <input
+              type="text"
+              class="form-control"
+              name="emp_salary"
+              id="emp_salary"
+              placeholder="enter employee salary"
+              value={{editEmployee.emp_salary}}
+            />
+          </div>
+          <div class="col-3 form-group">
+            <label for="emp_email">emp email</label>
+            <input
+              type="text"
+              class="form-control"
+              name="emp_email"
+              id="emp_email"
+              placeholder="enter email address"
+              value={{editEmployee.emp_email}}
+              required
+            />
+          </div>
+          <div class="col-3 form-group">
+            <label for="emp_edu">Emp education</label>
+            <select class="form-control" name="emp_edu">
+              <option value="be">BE</option>
+              <option value="btech">BTECH</option>
+              <option value="bca">BCA</option>
+              <option value="mca">MCA</option>
+              <option value="msc">MSC</option>
+            </select>
+          </div>
+          <div class="col-3 form-group">
+            <label for="emp_exp">Emp Experience</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="enter employee experience"
+              name="emp_exp"
+              value={{editEmployee.emp_exp}}
+            />
+          </div>
+
+          <div class="col-3 form-group">
+            <label for="emp_phone">Emp Phone number</label>
+            <input
+              type="text"
+              class="form-control"
+              name="emp_phone"
+              placeholder="enter employee phone"
+              id="emp_phone"
+              value={{editEmployee.emp_phone}}
+            />
+          </div>
+
+          <div class="col-3 form-group">
+            <label for="emp_gender"> Gender</label>
+            <div>
+              <input
+                type="radio"
+                class="form-check-input1"
+                placeholder="enter employee gender"
+                name="emp_gender"
+                id="emp_gender"
+                value="male"
+                value={{editEmployee.emp_gender}}
+              />Male
+              <input
+                type="radio"
+                class="form-check-input1"
+                placeholder="enter employee gender"
+                name="emp_gender"
+                id="emp_gender"
+                value="female"
+                value={{editEmployee.emp_gender}}
+              />Female
+              <input
+                type="radio"
+                class="form-check-input1"
+                placeholder="enter employee gender"
+                name="emp_gender"
+                id="emp_gender"
+                value={{editEmployee.emp_gender}}
+              />Other
+            </div>
+          </div>
+          <div class="col-3 form-group">
+            <label for="emp_photo">Emp Photo</label>
+            <input
+              type="file"
+              class="form-control"
+              name="emp_photo"
+              id="emp_photo"
+            />
+          </div>
+          <div class="col-6 form-group">
+            <label for="emp_skills">Skills</label>
+            <div>
+              <input
+                type="checkbox"
+                name="emp_skills"
+                value="javascript"
+                checked
+              />Javascript
+              <input type="checkbox" name="emp_skills" value="react" />React
+              <input type="checkbox" name="emp_skills" value="nodejs" />Nodejs
+              <input
+                type="checkbox"
+                name="emp_skills"
+                value="expressjs"
+              />Expressjs
+            </div>
+          </div>
+          <div>
+            <button class="btn btn-success">update</button>
+          </div>
+        </div>
+      </form>
+    </main>
+  </article>
+</section>
