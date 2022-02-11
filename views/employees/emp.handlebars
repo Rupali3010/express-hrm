@@ -1,14 +1,16 @@
 <section class="container bg-white my-2">
   <article class="row">
     <div class="col-3 bg-light text-center">
-      <span class="editIcon">
-        <a href="/employee/edit-emp/{{payload._id}}"><img
-            src="https://cdn-icons.flaticon.com/png/512/5253/premium/5253658.png?token=exp=1644234277~hmac=43a5293589816a5443bdcda0fcf840fa"
-            alt=""
-            title="edit profile"
-          /></a>
-
-      </span>
+      {{#if user}}
+        <span class="editIcon">
+          <a href="/employee/edit-emp/{{payload._id}}"><img
+              src="https://cdn-icons.flaticon.com/png/512/5253/premium/5253658.png?token=exp=1644234277~hmac=43a5293589816a5443bdcda0fcf840fa"
+              alt=""
+              title="edit profile"
+            /></a>
+        </span>
+      {{else}}
+      {{/if}}
       <figure class="my-2 p-2">
 
         <img
@@ -29,15 +31,18 @@
         <h2
           class="text-uppercase border-bottom font-weight-bold text-dark p-2 container-fluid ml-2"
         >{{payload.emp_name}}</h2>
-        <form
-          class="float-right text-danger"
-          method="post"
-          action="/employee/delete-emp/{{payload._id}}?_method=DELETE"
-        >
-          <input type="hidden" name="_method" value="DELETE" />
-          <button class="btn btn-danger">delete</button>
-        </form>
 
+        {{#if user}}
+          <form
+            class="float-right text-danger"
+            method="post"
+            action="/employee/delete-emp/{{payload._id}}?_method=DELETE"
+          >
+            <input type="hidden" name="_method" value="DELETE" />
+            <button class="btn btn-danger">delete</button>
+          </form>
+        {{else}}
+        {{/if}}
         <div class="container-fluid">
           <p class="lead p-1">Employee id :
             {{payload.emp_id}}

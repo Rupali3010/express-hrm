@@ -3,11 +3,13 @@ const { PORT, MONGODB_URL } = require("./config");
 const { connect } = require("mongoose");
 const app = express();
 const { engine } = require("express-handlebars");
+const passport = require("passport");
 const { join } = require("path");
 const Handlebars = require("handlebars");
 const methodOverride = require("method-override");
 const flash = require("connect-flash");
 const session = require("express-session");
+require("./middlewares/passport")(passport);
 
 //? importing all routing here
 const EmployeeRouter = require("./Route/employee");
@@ -26,6 +28,8 @@ app.use(
     saveUninitialized: true,
   })
 );
+app.use(passport.initialize());
+app.use(passport.session());
 
 //?connect-flash middleware
 app.use(flash());
@@ -33,7 +37,12 @@ app.use(function (req, res, next) {
   res.locals.SUCCESS_MESSAGE = req.flash("SUCCESS_MESSAGE");
   res.locals.ERROR_MESSAGE = req.flash("ERROR_MESSAGE");
   res.locals.errors = req.flash("errors");
-  // next();
+  res.locals.error = req.flash("error");
+  res.locals.user = req.user || null;
+  let userData = req.user || null;
+  res.locals.finalData = Object.create(userData);
+  res.locals.username = res.locals.finalData.username;
+  next();
 });
 
 //?======== Template engine starts here =========

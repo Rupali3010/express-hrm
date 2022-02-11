@@ -3,6 +3,7 @@
 const { Router } = require("express");
 const multer = require("multer");
 const EmpSchema = require("../Model/Employee");
+const { ensureAuthenticated } = require("../helper/auth_helper");
 const router = Router();
 
 //?load multer middleware
@@ -10,7 +11,7 @@ const { storage } = require("../middlewares/multer");
 
 // const upload = multer({ dest: 'uploads/' });
 const upload = multer({ storage: storage });
-console.log(upload);
+// console.log(upload);
 
 /*@ HTTP-GET METHOD
 @ACCESS PUBLIC
@@ -23,9 +24,18 @@ router.get("/home", async (req, res) => {
 
 /*@ HTTP-GET METHOD
 @ACCESS PUBLIC
+@URL employee/home
+*/
+router.get("/emp-profile", ensureAuthenticated, async (req, res) => {
+  let payload = await EmpSchema.find({ user: req.user.id }).lean();
+  res.render("../views/employees/emp-profile", { payload });
+});
+
+/*@ HTTP-GET METHOD
+@ACCESS PUBLIC
 @URL employee/create-app
 */
-router.get("/create-emp", (req, res) => {
+router.get("/create-emp", ensureAuthenticated, (req, res) => {
   res.render("../views/employees/create-emp", { title: "create employee" });
 });
 
@@ -34,15 +44,18 @@ router.get("/create-emp", (req, res) => {
 @URL employee/edit-emp
 */
 router.get("/:id", async (req, res) => {
-  let payload = await EmpSchema.findOne({ _id: req.params.id }).lean();
+  let payload = await EmpSchema.findOne({
+    _id: req.params.id,
+    user: req.user.id,
+  }).lean();
   res.render("../views/employees/emp", { payload });
 });
 
 /*@ HTTP-GET METHOD
-@ACCESS PUBLIC
+@ACCESS PRIVATE
 @URL employee/emp
 */
-router.get("/edit-emp/:id", async (req, res) => {
+router.get("/edit-emp/:id", ensureAuthenticated, async (req, res) => {
   let editEmployee = await EmpSchema.findOne({ _id: req.params.id }).lean();
   res.render("../views/employees/editEmp", { editEmployee });
 });
@@ -65,6 +78,7 @@ router.post("/create-emp", upload.single("emp_photo"), async (req, res) => {
     emp_gender: req.body.emp_gender,
     emp_phone: req.body.emp_phone,
     emp_email: req.body.emp_email,
+    user: req.user.id,
   };
 
   // await EmpSchema.create(payload);

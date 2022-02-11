@@ -14,8 +14,8 @@ const UserSchema = new Schema(
       type: String,
       required: true,
     },
-    role: [user, employee],
-    default: "user",
+    // role: ["user", "employee"],
+    // default: "user",
   },
   { timestamps: true }
 );

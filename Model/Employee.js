@@ -43,6 +43,10 @@ const EmpSchema = new Schema(
       type: Number,
       required: true,
     },
+    user: {
+      type: [""],
+      required: true,
+    },
   },
   { timestamps: true }
 );

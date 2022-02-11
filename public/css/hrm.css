@@ -47,7 +47,7 @@ body {
 }
 
 .alert-danger {
-  background: #64b364f2;
+  background: rgb(252, 164, 164);
   padding: 10px;
   color: crimson;
   border-bottom: 3px solid crimson;
